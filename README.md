@@ -1,60 +1,72 @@
-# GEM
-GEMmaker
+## Lab Overview: 
+This is a workflow to analyze the human RNA sequencing data. There are several platforms available for RNA sequencing. However, new software and workflows develop and introduce every day. Here we introduce a workfow for analyzing the human RNA sequencing data Using GEMprep and Nextflow. By running this workflow, you will learn how to find out the RNAseq data from NCBI database and make GEM. Then, you will analyze the RNA sequencing data from homo sapiens.
 
-#install nextflow and copy to PATH
-curl -s https://get.nextflow.io | bas 
+## Learning Objectives:
+
+1. Make a GEM
+2. RNAseq Analysis
+
+### Lab Tasks
+
+#### install Nextflow
+
+curl -s https://get.nextflow.io/ | bash
 cp nextflow ~/bin
+sudo apt update #Updates software repositories.
+sudo apt install default-jre #Install Java
+wget -qO- https://get.nextflow.io/ | bash #Compile nextflow
+sudo cp nextflow /usr/local/bin #Adds nextflow to your PATH
+#Type this to see if nextflow software installed
+nextflow
+
+###### Install Singularity
 
 #Update the Linux software repositories
 sudo apt-get update
-
 #Install dependencies
-sudo apt install -y build-essential libseccomp-dev pkg-config squashfs-tools cryptsetup libglib2.0-dev
+sudo apt install -y \
+build-essential \
+libseccomp-dev \
+pkg-config \
+squashfs-tools \
+cryptsetup \
+libglib2.0-dev
 
-#Install GO software		#updated version:https://gist.github.com/nikhita/432436d570b89cab172dcf2894465753
-sudo rm -r /usr/local/go -rf
-export VERSION=1.18.3 OS=linux ARCH=amd64 				# change this if you need
-wget -O /tmp/go${VERSION}.${OS}-${ARCH}.tar.gz \
-https://dl.google.com/go/go${VERSION}.${OS}-${ARCH}.tar.gz
-sudo tar -C /usr/local -xzf /tmp/go${VERSION}.${OS}-${ARCH}.tar.gz
-echo 'export GOPATH=${HOME}/go' >> ~/.bashrc
-echo 'export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin' >> ~/.bashrc
+###### Install GO software
+
+wget https://go.dev/dl/go1.20.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.20.3.linux-amd64.tar.gz
+echo $PATH | grep "/usr/local/go/bin"
 source ~/.bashrc
-go						#test go
 
-#Install singularity software using source code
+###### Install singularity software
+
+#Download source code
 export VERSION=3.10.0 && # adjust this as necessary \
-wget https://github.com/sylabs/singularity/releases/download/v${VERSION}/singularity-ce-${VERSION}.tar.gz && tar -xzf singularity-ce-${VERSION}.tar.gz && cd 
-singularity-ce-${VERSION}
+wget https://github.com/sylabs/singularity/releases/download/v$%7BVERSION%7D/singularity-ce-$%7BVERSION%7D.tar.gz && \
+tar -xzf singularity-ce-${VERSION}.tar.gz && \
+cd singularity-ce-${VERSION}
 #Compile source code
-./mconfig  &&  make -C ./builddir  &&  sudo make -C ./builddir install
+./mconfig && \
+make -C ./builddir && \
+sudo make -C ./builddir install
+#Install dependencies
+sudo apt-get install -y \
+build-essential \
+libseccomp-dev \
+pkg-config \
+squashfs-tools \
+cryptsetup
+#Type this to see if nextflow singularity installed
+Singularity
 
-#test sigularity
+###### Run GEMMaker
+
 nextflow run systemsgenetics/gemmaker -profile test,singularity
 
-#Nextflow intallation
-sudo apt update #Updates software repositories.
-sudo apt install default-jre 			#Install Java
-wget -qO- https://get.nextflow.io | bash 	#Compile nextflow
-sudo cp nextflow /usr/local/bin 		#Adds nextflow to your PATH								#test nextflow 
-nextflow
+###### Install GEMprep
 
-
-#Input data: from ncbi db (https://trace.ncbi.nlm.nih.gov/Traces/index.html?view=run_browser&display=metadata)
-#example: 
-wget https://trace.ncbi.nlm.nih.gov/Traces?run=SRR24121374
-
-#build GEMmaker to pull the database from NCBI and run the steps using nexflow
-nextflow run systemsgenetics/gemmaker -profile singularity \
---pipeline kallisto \
---kallisto_index_path TAIR10_cdna_20101214.indexed \
---sras SRAs.txt
-
-
-nextflow run systemsgenetics/gemmaker -profile singularity \  
---pipeline kallisto		\
---kallisto_index_path  Homo_sapiens.GRCh38.cdna.all.kallisto.indexed	\
---sras SRAs.txt
-
-
-
+conda create -n gemprep python=3.6 matplotlib mpi4py numpy pandas r scikit-learn seaborn
+source activate gemprep
+git clone https://github.com/SystemsGenetics/GEMprep
+cd GEMprep 
