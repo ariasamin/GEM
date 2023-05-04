@@ -23,7 +23,7 @@ nextflow
 
 Update the Linux software repositories
 sudo apt-get update
-#### Install dependencies
+### Install dependencies
 sudo apt install -y \
 build-essential \
 libseccomp-dev \
