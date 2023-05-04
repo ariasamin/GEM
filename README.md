@@ -41,16 +41,16 @@ source ~/.bashrc
 
 ### Install singularity software
 
-#### Download source code
+### Download source code
 export VERSION=3.10.0 && # adjust this as necessary \
 wget https://github.com/sylabs/singularity/releases/download/v$%7BVERSION%7D/singularity-ce-$%7BVERSION%7D.tar.gz && \
 tar -xzf singularity-ce-${VERSION}.tar.gz && \
 cd singularity-ce-${VERSION}
-##### Compile source code
+### Compile source code
 ./mconfig && \
 make -C ./builddir && \
 sudo make -C ./builddir install
-##### Install dependencies
+### Install dependencies
 sudo apt-get install -y \
 build-essential \
 libseccomp-dev \
