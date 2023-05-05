@@ -42,3 +42,6 @@ GEMmaker.GEM.TPM_log2.txt  --density HIST-BEFORE.png
 
 python /home/student/Desktop/classroom/myfiles/4-5.Build_computational_genomics_lab_github/GEMprep/bin/visualize.py  \
 Homo_sapiense_TMP_log2_quantile.txt  --density  HIST-AFTER.png
+
+
+
