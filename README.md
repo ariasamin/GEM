@@ -24,13 +24,7 @@ nextflow
 Update the Linux software repositories
 sudo apt-get update
 ### Install dependencies
-sudo apt install -y \
-build-essential \
-libseccomp-dev \
-pkg-config \
-squashfs-tools \
-cryptsetup \
-libglib2.0-dev
+sudo apt install -y build-essential libseccomp-dev pkg-config squashfs-tools cryptsetup libglib2.0-dev
 
 ### Install GO software
 
@@ -42,21 +36,13 @@ source ~/.bashrc
 ### Install singularity software
 
 ### Download source code
-export VERSION=3.10.0 && # adjust this as necessary \
-wget https://github.com/sylabs/singularity/releases/download/v$%7BVERSION%7D/singularity-ce-$%7BVERSION%7D.tar.gz && \
-tar -xzf singularity-ce-${VERSION}.tar.gz && \
-cd singularity-ce-${VERSION}
+export VERSION=3.10.0 && # adjust this as necessary 
+wget https://github.com/sylabs/singularity/releases/download/v$%7BVERSION%7D/singularity-ce-$%7BVERSION%7D.tar.gz && 
+tar -xzf singularity-ce-${VERSION}.tar.gz && cd singularity-ce-${VERSION}
 ### Compile source code
-./mconfig && \
-make -C ./builddir && \
-sudo make -C ./builddir install
+./mconfig && make -C ./builddir && sudo make -C ./builddir install
 ### Install dependencies
-sudo apt-get install -y \
-build-essential \
-libseccomp-dev \
-pkg-config \
-squashfs-tools \
-cryptsetup
+sudo apt-get install -y build-essential libseccomp-dev pkg-config squashfs-tools cryptsetup
 Type this to see if nextflow singularity installed
 Singularity
 
