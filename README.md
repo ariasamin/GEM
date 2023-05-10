@@ -18,11 +18,11 @@ This is a workflow to analyze the human RNA sequencing data. There are several p
 ### install Nextflow
     curl -s https://get.nextflow.io/ | bash
     cp nextflow ~/bin
-    sudo apt update                               #Updates software repositories.
-    sudo apt install default-jre                  #Install Java
-    wget -qO- https://get.nextflow.io/ | bash     #Compile nextflow
-    sudo cp nextflow /usr/local/bin               #Adds nextflow to your PATH
-    nextflow                                      #Type this to see if nextflow software installed
+    sudo apt update                               # Updates software repositories.
+    sudo apt install default-jre                  # Install Java
+    wget -qO- https://get.nextflow.io/ | bash     # Compile nextflow
+    sudo cp nextflow /usr/local/bin               # Adds nextflow to your PATH
+    nextflow                                      # Type this to see if nextflow software installed
 
 ### Install Singularity
     ### Update the Linux software repositories
@@ -45,7 +45,7 @@ This is a workflow to analyze the human RNA sequencing data. There are several p
     cryptsetup \
     libglib2.0-dev
     cryptsetup
-    Singularity         #Type this to see if singularity installed
+    Singularity         # Type this to see if singularity installed
     
 ### Install GO software
     wget https://go.dev/dl/go1.20.3.linux-amd64.tar.gz
